@@ -47,13 +47,15 @@
 
     <dl tal:condition="nocall:results">
         <tal:block repeat="result results">
-            <dt>
-                <a 
-                    tal:content="python:helpers.dictify(result)['title']"
-                    tal:attributes="href python:helpers.dictify(result)['url']"
-                    />
-            </dt>
-            <dd tal:content="python:helpers.dictify(result)['description']" />
+            <tal:block define="info python:helpers.dictify(result)">
+                <dt>
+                    <a 
+                        tal:content="info/title"
+                        tal:attributes="href info/url"
+                        />
+                </dt>
+                <dd tal:content="info/description" />
+            </tal:block>
         </tal:block>
     </dl>
 

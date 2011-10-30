@@ -22,7 +22,10 @@ class AcmeSearch(BrowserView):
             helpers = getMultiAdapter((self.context, self.request,), name=u"acme_search_helpers")
             catalog = getToolByName(self.context, 'portal_catalog')
 
-            count = int(form['count'])
+            try:
+                count = int(form['count'])
+            except ValueError:
+                count = form['count'] = 10
 
             query = {
                 'portal_type': helpers.acmeTypes,
