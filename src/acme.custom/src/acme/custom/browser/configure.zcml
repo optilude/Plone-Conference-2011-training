@@ -1,0 +1,23 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="acme.custom">
+
+    <browser:view
+        name="acme_search_helpers"
+        for="*"
+        permission="zope.Public"
+        allowed_interface="acme.custom.interfaces.ISearchHelpers"
+        class=".helpers.SearchHelpers"
+        />
+    
+    <browser:page
+        name="acme-search"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        permission="zope2.View"
+        class=".search.AcmeSearch"
+        template="search.pt"
+        />
+  
+</configure>

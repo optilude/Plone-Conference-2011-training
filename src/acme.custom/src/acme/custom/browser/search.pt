@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="acme.custom">
+
+
+<body>
+<metal:main fill-slot="main" tal:define="results view/results; helpers nocall:context/@@acme_search_helpers">
+
+    <h1>Search</h1>
+
+    <form method="post" tal:attributes="action request/URL">
+
+        <fieldset>
+            <legend>Search parameters</legend>
+            
+            <div class="field">
+                <label for="searchText">Search text</label>
+                <div class="formHelp">
+                    The text to search for
+                </div>
+                <input type="text" name="searchText" id="searchText" tal:attributes="value request/searchText | nothing" />
+            </div>
+
+            <div class="field">
+                <label for="count">Result limit</label>
+                <div class="formHelp">
+                    The number of results to return
+                </div>
+                <input type="text" name="count" id="count" tal:attributes="value request/count | string:10" />
+            </div>
+
+            <div class="formControls">
+                <input type="submit" class="search" name="form.button.Search" value="Search" />
+            </div>
+
+        </fieldset>
+
+    </form>
+
+    <p class="discreet" tal:condition="not:nocall:results">
+        No results found
+    </p>
+
+    <dl tal:condition="nocall:results">
+        <tal:block repeat="result results">
+            <dt>
+                <a 
+                    tal:content="python:helpers.dictify(result)['title']"
+                    tal:attributes="href python:helpers.dictify(result)['url']"
+                    />
+            </dt>
+            <dd tal:content="python:helpers.dictify(result)['description']" />
+        </tal:block>
+    </dl>
+
+</metal:main>
+</body>
+</html>

@@ -3,5 +3,6 @@
   <version>0001</version>
   <dependencies>
   	<dependency>profile-Products.RedirectionTool:default</dependency>
+    <dependency>profile-acme.custom:default</dependency>
   </dependencies>
 </metadata>

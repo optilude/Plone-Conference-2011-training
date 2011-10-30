@@ -14,9 +14,9 @@ long_description = (
     open('CHANGES.txt').read()
     + '\n')
 
-setup(name='acme.policy',
+setup(name='acme.custom',
       version=version,
-      description="Acme Corp Policy package",
+      description="Custom views for Acme Corp",
       long_description=long_description,
       # Get more strings from
       # http://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -35,15 +35,9 @@ setup(name='acme.policy',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'Plone',
-          'Products.RedirectionTool',
-          'acme.custom',
-          # -*- Extra requirements: -*-
+          'Products.CMFPlone',
       ],
       extras_require={'test': ['plone.app.testing']},
       entry_points="""
-      # -*- Entry points: -*-
-  	  [z3c.autoinclude.plugin]
-  	  target = plone
       """,
       )
