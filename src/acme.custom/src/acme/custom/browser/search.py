@@ -4,6 +4,8 @@ from zope.publisher.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 
 class AcmeSearch(BrowserView):
+    """Acme Corp search form
+    """
     
     def _setup(self):
         self.request.set('disable_border',1)

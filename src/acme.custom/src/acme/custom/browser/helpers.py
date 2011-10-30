@@ -7,12 +7,15 @@ from Products.ZCatalog.interfaces import ICatalogBrain
 from Products.CMFCore.utils import getToolByName
 
 class SearchHelpers(BrowserView):
+    """Helper view registered as @@acme_search_helpers.
+    """
+
     implements(ISearchHelpers)
 
     acmeTypes = ['Document', 'News Item']
 
     def dictify(self, item):
-        
+
         if ICatalogBrain.providedBy(item):
             return {
                 'title': item.Title,
