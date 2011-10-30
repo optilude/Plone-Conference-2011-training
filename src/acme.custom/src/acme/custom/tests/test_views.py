@@ -36,3 +36,30 @@ class TestHelperView(unittest.TestCase):
         self.assertEqual(d['title'], u"Document one")
         self.assertEqual(d['description'], u"This is document one")
         self.assertEqual(d['url'], item.getURL())
+    
+    def test_dictify_obj(self):
+        from plone.app.testing import TEST_USER_ID
+        from plone.app.testing import setRoles
+
+        from acme.custom.browser.helpers import SearchHelpers
+
+        portal = self.layer['portal']
+        request = self.layer['request']
+
+        # Create some test content
+
+        setRoles(portal, TEST_USER_ID, ['Manager'])
+        portal.invokeFactory('Document', 'doc1',
+                title=u"Document one",
+                description=u"This is document one",
+            )
+        setRoles(portal, TEST_USER_ID, ['Member'])
+        
+        item = portal['doc1']
+
+        view = SearchHelpers(portal, request)
+        d = view.dictify(item)
+
+        self.assertEqual(d['title'], u"Document one")
+        self.assertEqual(d['description'], u"This is document one")
+        self.assertEqual(d['url'], item.absolute_url())

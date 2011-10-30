@@ -28,6 +28,6 @@ class SearchHelpers(BrowserView):
             return {
                 'title': item.Title(),
                 'description': item.Description(),
-                'url': item.absolute_url,
-                'review_state': wftool.getInfoFor(item, 'review_state')
+                'url': item.absolute_url(),
+                'review_state': wftool.getInfoFor(item, 'review_state', None)
             }
