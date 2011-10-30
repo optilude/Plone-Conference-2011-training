@@ -36,6 +36,7 @@ setup(name='acme.policy',
       install_requires=[
           'setuptools',
           'Plone',
+          'Products.RedirectionTool',
           # -*- Extra requirements: -*-
       ],
       extras_require={'test': ['plone.app.testing']},
