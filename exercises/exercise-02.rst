@@ -1,6 +1,11 @@
 Exercise 2 - Advanced buildout
 ------------------------------
 
+In this exercise, we will turn our minimal buildout into a more modular and
+manageable one. At the cost of a bit more complexity, we get builds that work
+better in a release process where multiple environments and versions are
+involved.
+
 1. In the buildout root, create a file ``versions.cfg`` containing::
 
 	[versions]
@@ -125,12 +130,15 @@ Exercise 2 - Advanced buildout
 Skip the ``[lxml]`` part and its entry in the ``parts`` list if you are on 
 Windows.
 
+This file contains various development tools, all of which we will consider
+later.
+
 4. Run the buildout::
 
 	$ bin/buildout
 
-5. Observe that some package versions were picked. Copy these into
-   ``versions.cfg``, e.g.::
+5. Observe that some package versions were picked by Buildout - they are not in
+   any KGS. To pin them down, we can copy these into ``versions.cfg``, e.g.::
 
   	[versions]
   	Cheetah = 2.2.1
