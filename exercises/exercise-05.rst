@@ -25,9 +25,9 @@ package in ``packages.cfg``.
 5. Enter some text in the 'Search text' field and search - you should see some
    results appearing underneath the search criteria box.
 
-Let's take a look at the code now. Find ``search.pt`` in the ``acme.custom``
-package (it's in the ``browser`` sub-package). It contains some code like
-this::
+   Let's take a look at the code now. Find ``search.pt`` in the ``acme.custom``
+   package (it's in the ``browser`` sub-package). It contains some code like
+   this::
 
         <dl tal:condition="nocall:results">
             <tal:block repeat="result results">
@@ -65,10 +65,10 @@ this::
 7. Let's do some more testing. Do another search, but this time put some
    non-numeric text into the "Result limit" field and attempt a search.
 
-Zope now appears to hang. What's happened?
+   Zope now appears to hang. What's happened?
 
-Take a look in the terminal, and you will see that you've been dropped to a
-PDB prompt like this::
+   Take a look in the terminal, and you will see that you've been dropped to a
+   PDB prompt like this::
 
     Traceback (innermost last):
       Module ZPublisher.Publish, line 126, in publish
