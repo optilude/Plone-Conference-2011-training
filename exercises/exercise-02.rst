@@ -127,8 +127,11 @@ involved.
 	recipe = zc.recipe.egg
 	eggs = jarn.mkrelease
 
-Skip the ``[lxml]`` part and its entry in the ``parts`` list if you are on 
-Windows.
+If you are on Windows:
+
+ * Skip the ``[lxml]`` part and its entry in the ``parts`` list
+ * Skip the ``[omelette]`` part and its entry in the ``parts`` list unless you
+   have ``junction.exe`` installed and a reasonably fast computer
 
 This file contains various development tools, all of which we will consider
 later.
