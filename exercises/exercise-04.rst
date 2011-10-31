@@ -38,8 +38,8 @@ Products.RedirectionTool from source easily with ``mr.developer``.
     acme.policy = fs acme.policy
     Products.RedirectionTool = svn http://svn.plone.org/svn/collective/RedirectionTool/trunk
 
-Note: See the ``mr.developer`` documentation for other supported version
-control systems, including Git and Mercurial.
+See the ``mr.developer`` documentation for other supported version control
+systems, including Git and Mercurial.
 
 5. We can now see this in the list of available develop packages::
 
@@ -52,13 +52,16 @@ control systems, including Git and Mercurial.
     $ bin/develop activate Products.RedirectionTool
     $ bin/buildout
 
-Check out the contents of e.g. ``bin/instance`` to verify that this egg is now
-being loaded from ``src`` instead of an egg.
+Check out the contents of e.g. the ``bin/instance`` script to verify that this
+egg is now being loaded from ``src`` instead of an egg::
+
+    $ cat bin/instance | grep RedirectionTool
 
 Other commands
 ~~~~~~~~~~~~~~
 
-We can now work on this package in src, and check in changes when necessary.
+We can now work on this package in ``src/``, and check in changes when
+necessary.
 
 We can check the status of all our packages at once with::
 
@@ -90,5 +93,4 @@ To deactivate, but leave checked out::
 
 This should now pick an egg instead of using the develop distribution.
 
-We should add this to ``versions.cfg`` to pin it down!
-
+We should then add this to ``versions.cfg`` to pin it down!
