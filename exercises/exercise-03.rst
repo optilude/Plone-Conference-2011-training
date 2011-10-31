@@ -8,8 +8,7 @@ also contain the extension profile that makes basic changes to a vanilla Plone
 site, though it should not contain custom code.
 
 In this exercise, we will modify the advanced buildout from Exercise 2 to use
-a policy package instead of installing Plone directly, and show a simple change
-in an extension profile.
+a policy package instead of installing Plone directly.
 
 1. Run ZopeSkel from the src directory::
 
@@ -101,7 +100,3 @@ More on this later.
 8. Start up Zope and verify that everything is working::
 
     $ bin/instance fg
-
-In the answer code, we have also added an extension profile step to set the
-site title and a test for this. Try to add this yourself if you know how, or
-check out the answer.
