@@ -30,7 +30,7 @@ build. We can use Sphinx for this. See http://sphinx.pocoo.org/ for more.
 Answer the questions with defaults, except where project-specific information
 is required.
 
-Answer 'n' when asked if you want to create a makefile.
+Answer ``n`` when asked if you want to create a makefile.
 
 3. Run the documentation builder from the buildout root:
 
@@ -89,7 +89,7 @@ The default documentation can now be found in ``docs/html/index.html``.
     $ bin/build-docs
 
 The documentation should now be updated with the new page, plus docstrings for
-the interface. The ``SearchHelpesr`` and ``AcmeSearch`` view classes are
+the interface. The ``SearchHelpers`` and ``AcmeSearch`` view classes are
 sparsely, documented, however, because they don't have docstrings.
 
 9. Add some docstrings to these views and their methods and re-run the docs
