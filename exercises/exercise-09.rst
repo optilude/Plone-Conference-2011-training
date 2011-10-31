@@ -2,8 +2,8 @@ Exercise 9 - Deployment buildout
 --------------------------------
 
 For this exercise, we have copied a number of common buildout recipes to the
-directory ``buildout.d``. The ``buildout.d/temlates`` directory contains template
-configuration files.
+directory ``buildout.d``. The ``buildout.d/temlates`` directory contains
+template configuration files.
 
 1. Install MySQL if you do not have it already and create a database ``zodb``
    accessible as the user ``zope`` with the password ``secret``.
@@ -15,12 +15,12 @@ configuration files.
 
 Note: You will need MySQL development headers installed as well!
 
-
 2. Create a top level directory ``etc``::
 
     $ mkdir etc
 
-3. Create a self-signed SSL certificate. You will need OpenSSL installed.
+3. Create a self-signed SSL certificate. You will need OpenSSL installed. Answer
+   the questions with dummy values as you wish::
 
     $ cd etc
     $ openssl req -new -x509 -nodes -out server.crt -keyout server.key
@@ -291,7 +291,7 @@ Note: You will need MySQL development headers installed as well!
     #hexagonit.recipe.cmmi 1.5.0
     hexagonit.recipe.download = 1.5.0
 
-9. Start Supervisor to start the various processes
+9. Run Supervisor to start the various processes::
 
     $ bin/supervisord
 
@@ -301,7 +301,7 @@ Note: You will need MySQL development headers installed as well!
     http://localhost:9001
 
 11. Connect to the first Zope instance to create the Plone site in the new
-   database. Install the acme.policy profile, and ensure the site is called
+   database. Install the ``acme.policy`` profile, and ensure the site is called
    ``Plone`` (referenced in ``${sites:main}`` above).
 
 12. Now test the full stack on::
