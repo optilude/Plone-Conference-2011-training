@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cache="http://namespaces.zope.org/cache"
+    i18n_domain="acme.custom">
+
+    <include package="z3c.caching" file="meta.zcml" />
+    <include package="plone.app.caching" file="caching.zcml" />
+
+    <cache:ruleset
+        ruleset="plone.content.itemView"
+        for=".info.AcmeInfo"
+        />
+
+</configure>
