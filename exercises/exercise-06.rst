@@ -88,7 +88,7 @@ folder called ``coverage``.
 
 4. Open ``coverage/all.html`` in a browser to see the report. Drill into
    ``helpers.py``, and it should be obvious which code path isn't covered: the
-   enter 'else' statement is missing tests!
+   entire 'else' statement is missing tests!
 
 5. Let's add some. Find ``tests/test_views.py`` in ``acme.custom`` and add a
    test like this::
@@ -217,7 +217,7 @@ end up at a (Pdb) prompt::
     -> d = view.dictify(item)
     (Pdb) 
 
-11. Use ``s`` to step into the line, then ``l`` and ``n`` several times to get
+11. Use ``s`` to step into the call, then ``l`` and ``n`` several times to get
     into the ``else`` statement. Be careful not to step past the ``return``
     statement::
 
@@ -262,3 +262,5 @@ Our tests have paid off - they found a bug we didn't find through the web.
     $ bin/coveragereport
 
 The new report should look better, at least for the ``helpers`` module.
+
+For bonus points, improve the test coverage for the ``search`` module as well.
