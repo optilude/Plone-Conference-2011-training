@@ -22,7 +22,7 @@ may need to enable SSH / remote login::
 Up to now, we have kept our source code inside the build and used ``fs`` source
 locations in the ``[sources]`` list for ``mr.developer``. Normally, we would
 version each package separately, using ``mr.developer`` to pull them into the
-from the appropriate sources.
+build from the appropriate sources.
 
 Let us now organise our build accordingly by create two repositories in the
 directory above.
@@ -30,12 +30,12 @@ directory above.
 2. Copy the ``acme.policy`` and ``acme.custom`` packages there, and give each
    a ``.gitignore`` file::
 
-    $ cp -r src/acme.policy ~/git-repos
-    $ cp -r src/acme.custom ~/git-repos
+    $ cp -r src/acme.policy ~/git-repos/
+    $ cp -r src/acme.custom ~/git-repos/
     $ cp .gitignore ~/git-repos/acme.policy/
     $ cp .gitignore ~/git-repos/acme.custom/
 
-3. Initialise the repositories, add the soruces and commit the changes::
+3. Initialise the repositories, add the source files and commit the changes::
 
     $ cd ~/git-repos/acme.policy
     $ git init
@@ -61,7 +61,8 @@ directory above.
     acme.policy = git /<homedir>/git-repos/acme.policy
     acme.custom = git /<homedir>/git-repos/acme.custom
 
-Replace ``<homedir>`` with the full path to your home directory.
+Replace ``<homedir>`` with the full path to your home directory. (The ``~``
+prefix may not work.)
 
 6. Verify that this works by running the development build. The packages should
    appear as git clones in ``src/``::
@@ -89,6 +90,8 @@ We are now ready to make releases of our custom packages.
      describe what has changed since the last release
    * All the tests pass
 
+For now, assume the answer to each is "yes".
+
 10. Release the eggs using ``jarn.mkrelease`` and SCP::
 
     $ cd src/acme.policy
@@ -107,13 +110,13 @@ modes of ``jarn.mkrelease``.
 
 11. Start an egg index server.
 
-This is simply an HTTP server that will allow
-Buildout to locate and download the newly created archives of our two
-packages. In a production scenario, you may want to use ``nginx`` or
-``Apache`` configured to serve the directory where the eggs are being SCP'd
-*with a directory listing*. However, we can also use a server built into Python.
+This is simply an HTTP server that will allow Buildout to locate and download
+the newly created archives of our two packages. In a production scenario, you
+may want to use ``nginx`` or ``Apache`` configured to serve the directory where
+the eggs are being SCP'd *with a directory listing*.
 
-In a separate terminal, let the following command run::
+However, we can also use a server built into Python. In a separate terminal, let
+the following command run::
 
     $ cd ~/egg-index
     $ python -m SimpleHTTPServer
@@ -122,16 +125,20 @@ To verify that it works, open::
 
     http://localhost:8000
 
-The two zip archives should be available for download.
+The two zip archives should be available for download from this URL. You don't
+need to do anything with them yet, but if you can see them, so can Buildout.
 
-12. Tell buildout about the index server. In ``deployment.cfg`` uncomment and
-    modify this line::
+12. Tell the buildout about the index server. In ``deployment.cfg`` uncomment
+    and modify the ``find-links`` line::
 
         find-links = http://localhost:8000/
 
 13. Make sure the packageas are not in the ``auto-checkout`` list::
 
         auto-checkout =
+
+Note that in ``mr.developer``, checkouts always take precedence over eggs, even
+when pinned.
 
 14. Add the packages with the correct version numbers to ``versions.cfg``::
     
@@ -140,10 +147,11 @@ The two zip archives should be available for download.
         acme.policy = 1.0
         acme.custom = 1.0
 
+        ...
+
 15. Verify that the build works::
 
         $ bin/buildout -c deployment.cfg
-
 
 If you inspect e.g. ``bin/instance1``, you should see the reference to an
 installed (non-develop) egg for ``acme.policy`` and ``acme.custom``::
@@ -152,7 +160,7 @@ installed (non-develop) egg for ``acme.policy`` and ``acme.custom``::
         '/Users/optilude/Development/Plone/ploneconf2011/exercises/src/acme.policy/src',
         '/Users/optilude/Development/Plone/ploneconf2011/exercises/src/acme.custom/src',
 
-16. Tag the build
+16. Tag the build::
 
         $ git commit -a -m "Getting ready to tag build v1.0"
         $ git tag "1.0"
@@ -164,17 +172,18 @@ we would also push the tag::
 
 We would then use this for a deployment, by checking out the tag on the relevant
 server and running the build, which will download our custom eggs from the
-internal egg index and build everything from stable packages. To roll back to a
-previous version, you can check out an older tag of the build and re-run
-buildout, which will use whatever versions of custom (and third-party) packages
-were pinned in ``versions.cfg`` at the time.
+internal egg index and build everything from stable packages.
+
+To roll back to a previous version, you can check out an older tag of the build
+and re-run buildout, which will use whatever versions of custom (and third-
+party) packages were pinned in ``versions.cfg`` at the time.
 
 If we now revert to the development build, it will use the development
 checkouts, since we haven't cleared ``auto-checkout`` in ``buildout.cfg``. This
-may be appropraite, but for larger projects or organisations with shared
+may be appropriate, but for larger projects or organisations with shared
 packages used across multiple projects, it is probably best to clear out the
-``auto-checkout`` list in ``buildout.cfg`` (and any other files) when an
-appropriate release has been made.
+``auto-checkout`` list in ``buildout.cfg`` (and any other files) when a usable
+release has been made.
 
 If development then resumes on a package, it can be checked out with
 ``mr.developer``::
