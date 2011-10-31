@@ -40,3 +40,5 @@ etc/uwsgi_params.default
 etc/varnish.vcl
 etc/win-utf
 etc/zodbpack.conf
+.codeintel
+docs
