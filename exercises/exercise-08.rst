@@ -2,7 +2,7 @@ Exercise 8 - Continuous Integration
 -----------------------------------
 
 Continous Integration is used to run all the tests of a projcet each time the
-code is changed, to notify of regressions quickly. The most popualr open source
+code is changed, to notify of regressions quickly. The most popular open source
 CI tool is Jenkins (formerly Hudson).
 
 For the purposes of this exercise, we will assume the build is in a local git
@@ -10,11 +10,15 @@ repository.
 
 1. Download the Java Web Archive build of Jenkins from http://jenkins-ci.org.
 
-2. Run it with::
+2. Run it in its own terminal::
 
     $ java -jar jenkins.war
 
-3. Go to "Manage Jenkins" and install the following plugins:
+This will create some files in ~/.jenkins initially. Note that builds go here
+by default, so this directory can get large after a while.
+
+3. Go to "Manage Jenkins" at http://localhost:8080 and install the following
+   plugins through the web interface:
    
    * Git plugin
    * HTML publisher plugin
@@ -41,12 +45,16 @@ repository.
     scripts = coveragereport
     arguments = ('parts/ci-test/coverage', 'coverage')
 
-Ensure the changes are committed.
+Ensure the changes are committed in your Git repository checkout: Jenkins needs
+to be able to check it out.
+
+Alternatively, you can run the examples below against the GitHub location of
+these exercies, with the ``exercise-08-answer`` branch.
 
 5. In the Jenkins console on ``http://localhost:8080``, create a new job using
-   the "free-style software project" template. 
+   the "free-style software project" template, called e.g. ``acme``.
 
-Note: Do not put spaces in the filename!
+Note: Do not put spaces in the project name!
 
 6. Set up Git source code management. In the "URL of repository" box, enter the
    path to your local repository. In the "branch specifier", enter the branch
@@ -58,7 +66,7 @@ Note: Do not put spaces in the filename!
     python bootstrap.py
     bin/buildout
     bin/ci-test
-    bin/coveragereport
+    bin/ci-coverage
     bin/build-docs
 
 8. Enable "Publish HTML reports" and add two reports::
@@ -79,5 +87,5 @@ Note: Do not put spaces in the filename!
     report.
 
 Normally, we would set up Jenkins to poll for changes in the source control
-system or run the tests on a timer. Refere to the Jenkins Documentation for
+system or run the tests on a timer. Refer to the Jenkins Documentation for
 details.
