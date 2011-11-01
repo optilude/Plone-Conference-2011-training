@@ -80,7 +80,7 @@ logic!
 3. Let's get a better view of where the problems are. We'll first create a
    coverage report::
 
-    $ bin/coveagereport
+    $ bin/coveragereport
 
 The settings in ``buildout.cfg`` ensure this finds the coverage reports from
 the test runner (in ``parts/test/coverage``) and puts them in a top-level
@@ -181,34 +181,34 @@ test runner, there is no workflow by default.
 10. What's happened here? We may need to do a bit of debugging to find out.
     We'll put a breakpoint in the test::
 
-    def test_dictify_obj(self):
-        from plone.app.testing import TEST_USER_ID
-        from plone.app.testing import setRoles
+      def test_dictify_obj(self):
+          from plone.app.testing import TEST_USER_ID
+          from plone.app.testing import setRoles
 
-        from acme.custom.browser.helpers import SearchHelpers
+          from acme.custom.browser.helpers import SearchHelpers
 
-        portal = self.layer['portal']
-        request = self.layer['request']
+          portal = self.layer['portal']
+          request = self.layer['request']
 
-        # Create some test content
+          # Create some test content
 
-        setRoles(portal, TEST_USER_ID, ['Manager'])
-        portal.invokeFactory('Document', 'doc1',
-                title=u"Document one",
-                description=u"This is document one",
-            )
-        setRoles(portal, TEST_USER_ID, ['Member'])
-        
-        item = portal['doc1']
+          setRoles(portal, TEST_USER_ID, ['Manager'])
+          portal.invokeFactory('Document', 'doc1',
+                  title=u"Document one",
+                  description=u"This is document one",
+              )
+          setRoles(portal, TEST_USER_ID, ['Member'])
+          
+          item = portal['doc1']
 
-        view = SearchHelpers(portal, request)
+          view = SearchHelpers(portal, request)
 
-        import pdb; pdb.set_trace( )
-        d = view.dictify(item)
+          import pdb; pdb.set_trace( )
+          d = view.dictify(item)
 
-        self.assertEqual(d['title'], u"Document one")
-        self.assertEqual(d['description'], u"This is document one")
-        self.assertEqual(d['url'], item.absolute_url())
+          self.assertEqual(d['title'], u"Document one")
+          self.assertEqual(d['description'], u"This is document one")
+          self.assertEqual(d['url'], item.absolute_url())
 
 Notice the line ``import pdb; pdb.set_trace()``. Run the tests again, and you'll
 end up at a (Pdb) prompt::
@@ -221,24 +221,24 @@ end up at a (Pdb) prompt::
     into the ``else`` statement. Be careful not to step past the ``return``
     statement::
 
-    (Pdb) l
-     23             
-     24             else:
-     25     
-     26                 wftool = getToolByName(self.context, 'portal_workflow')
-     27     
-     28  ->             return {
-     29                     'title': item.Title(),
-     30                     'description': item.Description(),
-     31                     'url': item.absolute_url,
-     32                     'review_state': wftool.getInfoFor(item, 'review_state', None)
-     33                 }
-    (Pdb) 
+      (Pdb) l
+       23             
+       24             else:
+       25     
+       26                 wftool = getToolByName(self.context, 'portal_workflow')
+       27     
+       28  ->             return {
+       29                     'title': item.Title(),
+       30                     'description': item.Description(),
+       31                     'url': item.absolute_url,
+       32                     'review_state': wftool.getInfoFor(item, 'review_state', None)
+       33                 }
+      (Pdb) 
 
 12. Let's see what's happening with the ``url`` parameter::
 
-    (Pdb) pp item.absolute_url
-    <bound method ATDocument.absolute_url of <ATDocument at /plone/doc1>>
+      (Pdb) pp item.absolute_url
+      <bound method ATDocument.absolute_url of <ATDocument at /plone/doc1>>
 
 Aha! We've accessed the method, but forgotten to call it.
 
@@ -256,10 +256,10 @@ Aha! We've accessed the method, but forgotten to call it.
 Our tests have paid off - they found a bug we didn't find through the web.
 
 14. Run the tests again to make sure they work, then re-generate the coverage
-    report.
+    report::
     
-    $ bin/test --coverage=coverage
-    $ bin/coveragereport
+      $ bin/test --coverage=coverage
+      $ bin/coveragereport
 
 The new report should look better, at least for the ``helpers`` module.
 
