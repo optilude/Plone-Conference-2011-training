@@ -47,9 +47,9 @@ systems, including Git and Mercurial.
     Products.RedirectionTool
     acme.policy
 
-6. Let's activate it::
+6. Let's checkout and activate it::
 
-    $ bin/develop activate Products.RedirectionTool
+    $ bin/develop checkout Products.RedirectionTool
     $ bin/buildout
 
 Check out the contents of e.g. the ``bin/instance`` script to verify that this
