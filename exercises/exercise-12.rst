@@ -16,6 +16,10 @@ To see the load testing graphs, ensure you have ``gnuplot`` installed.
     ...
 
     [funkload]
+    recipe = zc.recipe.egg
+    eggs = 
+        funkload
+        tcpwatch
 
 2. Re-run buildout::
 
