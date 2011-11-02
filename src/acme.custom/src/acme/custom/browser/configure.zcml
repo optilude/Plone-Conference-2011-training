@@ -19,5 +19,13 @@
         class=".search.AcmeSearch"
         template="search.pt"
         />
+    
+    <browser:page
+        name="acme-info"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        permission="zope2.View"
+        class=".info.AcmeInfo"
+        template="info.pt"
+        />
   
 </configure>
