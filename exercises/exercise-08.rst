@@ -42,7 +42,8 @@ by default, so this directory can get large after a while.
     [ci-coverage]
     recipe = zc.recipe.egg
     eggs = z3c.coverage
-    scripts = coveragereport
+    scripts =
+      coveragereport=ci-coverage
     arguments = ('parts/ci-test/coverage', 'coverage')
 
 Ensure the changes are committed in your Git repository checkout: Jenkins needs
